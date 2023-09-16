@@ -6,7 +6,7 @@ This hook validates your commit message to check it a jira task was added. If no
 
 Run the installation command to install the hook in your local repository:
 
-`// TODO: installation command`
+`sh -c $(curl -fsSl https://raw.githubusercontent.com/jampow/jira-task-on-commit-msg/main/install.sh)`
 
 ## TODO
 
