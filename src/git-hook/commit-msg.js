@@ -4,49 +4,50 @@ const rl = require('readline');
 
 const cmtMsgFl = process.argv[2];
 const message = fs.readFileSync(cmtMsgFl);
-const numberPattern = /([0-9]{1,5}|BUG|FEAT)/i;
-const pattern = new RegExp("^\[[a-zA-Z]{2,8}-" + numberPattern.source + "\]", "i");
+const numberPattern = /([0-9]{1,6})/i;
+const pattern = new RegExp("^\[[a-z]{2,8}-" + numberPattern.source + "\]", "i");
 
-const teamName = 'PGDEV';
+const jiraPrefix = 'PGDEV';
 
 if (pattern.test(message)) {
-    process.exit(0);
+  process.exit(0);
 } 
 
-console.log('Sua mensagem está sem o número da task.');
-console.log('Ex: "[DNA-42] resposta para a vida, o universo e tudo mais"\n');
+console.log('It seems that you are trying to commit a message without a task number.');
+console.log('Eg: "[DNA-42] the answer to life, the universe and everything"\n');
 
 const resp = rl.createInterface({
-    input: process.stdin,
-    output: process.stdout
+  input: process.stdin,
+  output: process.stdout
 });
 
-// Capturando o sinal de interrupção (CTRL+C) para cancelar o commit
-resp.on('SIGINT', function() {
-    process.exit(1);
-});
-
-resp.question('Qual o número da task? ', function(id){
-    if ( numberPattern.test(id) ) {
-
-  var msg = '[' + teamName + '-' + id.toUpperCase() + '] ' + message;
-
-        fs.writeFile(cmtMsgFl, msg, function(err){
-        
-            if ( err ) {
-                console.log('Erro ao gravar ao salvar a nova mensagem');
-                process.exit(1);
-            }
-
-            console.log('Mensagem do commit alterada para:');
-            console.log(msg);
-            
-            process.exit(0);
-        });
-
-    } else {
-        console.log('Número inválido, precisa ter de 1 a 5 dígitos ou uma das palavras: BUG, FEAT.');
-        process.exit(1);
+const saveNewCommitMessage = (message) => {
+  fs.writeFile(cmtMsgFl, message, function(err){
+    if ( err ) {
+      console.log('Error saving commit message.');
+      process.exit(3);
     }
+
+    console.log('Commit message changed for:');
+    console.log(message);
+    
+    process.exit(0);
+  });
+};
+
+// Captura o sinal de interrupção do terminal (CTRL+C) para cancelar o script
+resp.on('SIGINT', function() {
+  process.exit(1);
+});
+
+resp.question(`Please, tell me what is your task number? ${jiraPrefix}-`, function(id){
+  if (!numberPattern.test(id)) {
+    console.log('Invalid task number. It needs to be a number of 6 digits or less.');
+    process.exit(2);
+  }
+
+  const newMsg = `[${jiraPrefix}-${id}] ${message}`;
+
+  saveNewCommitMessage(newMsg);
 });
 

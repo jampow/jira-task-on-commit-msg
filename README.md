@@ -1,30 +1,22 @@
-GIT HOOKS
-Comando para instalar hooks no projeto de maneira fácil, basta digitar o comando git hook dentro de um repositório git
+# JIRA TASK IN COMMIT MESSAGE (Git Hook)
 
-INSTALAÇÃO
-Clone o projeto pro seu computador. $ git clone ssh://git@stash.uol.intranet:7999/~gsoares/git-hook.git
+This hook validates your commit message to check it a jira task was added. If not, it'll prompt you. Just to make things easier!
 
-Altere o nome da equipe no arquivo hooks/commit-msg.js. Este nome tem que ser o prefixo da task do Jira, assim os commits do stash ficam vinculados com a task no jira.
+## Installation
 
-	...
-	// linha 11
-	var teamName = 'DVIZ';
-	...
-Instale como um módulo npm global $ npm install -g
+Run the installation command to install the hook in your local repository:
 
-Agora é só acessar algum repositório GIT e rodar o comando $ git hook
+`// TODO: installation command`
 
-DEPENDÊNCIAS
-Node.js
-ATUALIZAÇÃO
-Acesse o repositório aonde o projeto foi clonado, atualize o projeto com $ git pull e reinstale o pacote com npm install -g.
+## TODO
 
-Em ambiente Unix, todos os hooks que foram instalados com essa ferramenta já estarão atualizados. Pra quem usa windows precisa executar git hook dentro do repositório novamente.
-
-TODO
-Escrever mais testes
-Testar em/Adaptar para plataforma windows
-Adicionar opção para sobrescrever hooks já existentes
-Adicionar opção para desinstalar os hooks
-Pensar num meio fácil de alterar o nome da equipe para o hook de validação de mensagens de commit
+- [ ] make the installation script
+  - [ ] validate if there is another `commit-msg` previously installed and rename it before coping the files
+  - [ ] ask if the user wants to configure the hooks as a versionated folder
+- [ ] make initial configuration prompts
+  - [ ] prompt for the jira username and token (to use the jira's API)
+  - [ ] prompt for JIRA board prefix
+- [ ] use jira API to find the `in progress` task number
+- [ ] use Inquirer to prompt
+- [ ] write more tests
 
