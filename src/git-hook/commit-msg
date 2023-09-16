@@ -1,0 +1,7 @@
+#!/bin/sh
+
+exec < /dev/tty
+
+gitdir=`git config core.hooksPath`;
+
+node ${gitdir}/commit-msg.js $1
