@@ -1,4 +1,4 @@
-var expect = require( 'chai' ).expect;
+
 var fs = require( 'fs' );
 var exec = require( 'child_process' ).exec;
 var filePath = process.cwd() + '/msgFile.txt';
@@ -21,5 +21,5 @@ describe( 'Hook commit-msg', function() {
 
 after( function() {
 	fs.unlinkSync( filePath );
-} );
+});
 
