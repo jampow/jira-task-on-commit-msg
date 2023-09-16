@@ -10,7 +10,7 @@ Run the installation command to install the hook in your local repository:
 
 ## TODO
 
-- [ ] make the installation script
+- [x] write the installation script
   - [ ] validate if there is another `commit-msg` previously installed and rename it before coping the files
   - [ ] ask if the user wants to configure the hooks as a versionated folder
 - [ ] make initial configuration prompts
