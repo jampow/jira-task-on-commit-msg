@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 const fs = require('fs');
 const rl = require('readline');
 
